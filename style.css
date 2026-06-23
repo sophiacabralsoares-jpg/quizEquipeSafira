@@ -53,5 +53,191 @@ main {
 }
 
 .card-stack {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+}
 
+.card {
+    background-color: var(--card-bg);
+    border: 2 px solid var(--card-border);
+    border-radius: 16px;
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 10px 0 -2px #b5ceef, 0 10px 0 0 var(--card-border),
+                0 20px 0 -4px #a1bbe2, 0 20px 0 -2px var(--card-border);
+}
+
+.card-top {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+}
+
+.badge {
+    background-color: #a4c5f4;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--header-bg);
+}
+
+.badge.warning {
+    background-color: #fcd34d;
+    color: #854d0e;
+}
+
+h2#question-text {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    line-height: 1.4;
+    color: var(--header-bg);
+}
+
+.options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.option-btn {
+    background-color: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+    font-family: inherit;
+    font-size: 1rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.option-btn:hover {
+    border-color: var(--header-bg);
+}
+
+/*Acerto/erro*/
+.option-btn.correct {
+    background-color: #ecfdf5;
+    border-color: var(--correct-bg);
+    color: #065f46;
+}
+
+.option-btn.wrong {
+    background-color: #fef2f2;
+    border-color: var(--wrong-bg);
+    color: #991b1b;
+}
+
+.option-letter {
+    background-color: var(--header-bg);
+    color: white;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+footer {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+button {
+    font-family: var(--fonte-main);
+    cursor: pointer;
+    border: none;
+    font-weight: 600;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 2px solid var(--header-bg);
+    color: var(--header-bg);
+    padding: 0.5rem 1.5rem;
+    border-radius: 30px;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background-color: var(--header-bg);
+    color: white;
+}
+
+.btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Tela final */
+.result-card {
+    background-color: var(--card-bg);
+    border: 2px solid var(--card-border);
+    padding: 3rem;
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.trophy-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.score-box {
+    background-color: #b8d4f8;
+    padding: 2rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+}
+
+#final-score {
+    font-size: 3rem;
+    color: var(--header-bg);
+}
+
+.progress-bar-bg {
+    background-color: #e2e8f0;
+    height: 10px;
+    border-radius: 5px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background-color: var(--correct-bg);
+    transition: width 1s ease-in-out;
+}
+
+.btn-primary {
+    background-color: var(--header-bg);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0d1245;
 }
