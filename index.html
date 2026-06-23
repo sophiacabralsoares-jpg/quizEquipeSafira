@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz || Equipe Safira</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <header>
+        <h1>Equipe Safira</h1>
+        <span id="header-counter">1/10</span>
+    </header>
+
+    <main>
+        <section id="quiz-card-section">
+            <div class="card-stack">
+                <div class="card">
+                    <div class="card-top">
+                        <span id="question-badge" class="badge">#1 de 10</span>
+                        <span id="skipped-badge" class="badge warning hidden">Pulada</span>
+                    </div>
+                    <h2 id="question-text">Pergunta</h2>
+
+                    <div id="options-container" class="options-grid"></div>
+                </div>
+            </div>
+
+            <footer class="quiz-footer">
+                <span id="remaining-text">9 restantes</span>
+                <button id="btn-skip" class="btn-secondary">Pular</button>
+            </footer>
+        </section>
+
+        <section id="result-section" class="hidden">
+            <div class="result-card">
+                <div class="trophy-icon">🏆</div>
+                <h2>Quiz Concluído!</h2>
+                <p>Obrigado por participar!</p>
+
+                <div class="score-box">
+                    <h3 id="final-score">0/10</h3>
+                    <p>Questões corretas</p>
+                    <div class="progress-bar-bg">
+                        <div id="progress-bar-fill" class="progress-fill"></div>
+                    </div>
+                    <p id="feedback-message" class="feedback">Bom trabalho! Continue assim!</p>
+                </div>
+
+                <button id="btn-restart" class="btn-primary">Jogar novamente</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>

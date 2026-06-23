@@ -1,0 +1,57 @@
+:root {
+    --bg-color: #ffcab4;
+    --header-bg: #171c67;
+    --header-text: #008aff;
+    --card-bg: #cbe2fe;
+    --card-border: #9fbce6;
+    --correct-bg: #34d399;
+    --wrong-bg: #f87171;
+    --text-dark: #1e1e1e;
+    --fonte-main: 'IBM Plex Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: var(--fonte-main);
+    color: var(--text-dark);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: background-color 0.7s ease;
+}
+
+body.flash-correct { background-color: var(--correct-bg);}
+body.flash-wrong { background-color: var(--wrong-bg);}
+
+header {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1{
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.card-stack {
+
+}
