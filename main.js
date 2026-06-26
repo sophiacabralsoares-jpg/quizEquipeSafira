@@ -17,7 +17,7 @@ const questions = [
     },
     {
         question: "Qual é a principal função de um Banco de Dados em uma aplicação?",
-        options: ["Compilar o código-fonte em linhguagem de máquina",
+        options: ["Compilar o código-fonte em linguagem de máquina",
             "Renderizar os estilos visuais de uma página web.",
             "Armazenar, organizar e permitir a recuperação eficiente de dados."
         ],
