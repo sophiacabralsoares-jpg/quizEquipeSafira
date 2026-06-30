@@ -98,8 +98,21 @@ const btnSkip = document.getElementById("btn-skip");
 const quizSection = document.getElementById("quiz-card-section");
 const resultSection = document.getElementById("result-section");
 
+// NOVOS ELEMENTOS DA DOM PARA A TELA DE INÍCIO
+const startSection = document.getElementById("start-section");
+const btnStart = document.getElementById("btn-start");
+
+function startQuizFlow() {
+    // Garante que apenas a tela de início apareça ao carregar a página
+    startSection.classList.remove("hidden");
+    quizSection.classList.add("hidden");
+    resultSection.classList.add("hidden");
+    
+    // Reseta o contador do cabeçalho para indicar o início iminente
+    headerCounter.textContent = "0/10";
+}
+
 function initQuiz() {
-    // Preenche a fila inicial com os índices de 0 a 9
     currentQueue = questions.map((_, index) => index);
     skippedQueue = [];
     score = 0;
@@ -108,6 +121,7 @@ function initQuiz() {
     
     quizSection.classList.remove("hidden");
     resultSection.classList.add("hidden");
+    startSection.classList.add("hidden"); // Esconde a tela de início se o usuário reiniciar
     loadQuestion();
 }
 
@@ -242,3 +256,23 @@ document.getElementById("btn-restart").addEventListener("click", initQuiz);
 // Inicia o quiz
 initQuiz();
 
+// EVENTOS DE CLIQUE
+btnStart.addEventListener("click", () => {
+    startSection.classList.add("hidden");
+    initQuiz(); // Inicia o carregamento das perguntas reais
+});
+
+btnSkip.addEventListener("click", () => {
+    if (!isAnsweringSkipped) {
+        skippedQueue.push(currentQueue[currentQuestionIndex]);
+        advanceToNextQuestion();
+    }
+});
+
+document.getElementById("btn-restart").addEventListener("click", () => {
+    // Quando clicar em jogar novamente, volta para a tela de início
+    startQuizFlow();
+});
+
+// Inicializa o fluxo exibindo a tela de boas-vindas
+startQuizFlow();
