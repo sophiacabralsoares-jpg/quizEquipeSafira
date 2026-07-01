@@ -150,7 +150,7 @@ function loadQuestion() {
         btnSkip.disabled = true; // Desabilita pular na rodada de puladas
         
         let remaining = skippedQueue.length - currentQuestionIndex - 1;
-        remainingText.textContent = `${remaining} restantes na repescagem`;
+        remainingText.textContent = `${remaining} restantes para responder novamente`;
     }
 
     // Atualiza cabeçalho
