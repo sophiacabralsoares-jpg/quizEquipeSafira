@@ -98,7 +98,15 @@ const btnSkip = document.getElementById("btn-skip");
 const quizSection = document.getElementById("quiz-card-section");
 const resultSection = document.getElementById("result-section");
 
-// NOVOS ELEMENTOS DA DOM PARA A TELA DE INÍCIO
+// ÁUDIOS / EFEITOS SONOROS
+const somAcerto = new Audio('mp3/rightanswer.mp3');
+const somErro = new Audio('mp3/wronganswer.mp3');
+const somExcelente = new Audio('mp3/excelentresult.mp3');
+const somOtimo = new Audio('mp3/greatresult.mp3');
+const somRuim = new Audio('mp3/poorresult.mp3');
+const somClick = new Audio('mp3/clicksound.mp3');
+
+// ELEMENTOS DA DOM PARA A TELA DE INÍCIO
 const startSection = document.getElementById("start-section");
 const btnStart = document.getElementById("btn-start");
 
@@ -155,7 +163,7 @@ function loadQuestion() {
     questionText.textContent = q.question;
     optionsContainer.innerHTML = "";
 
-    const letters = ["A", "B", "C"];
+    const letters = ["A", "B", "C"]; // Ajuste para 3 alternativas conforme seu HTML
     
     q.options.forEach((option, index) => {
         const btn = document.createElement("button");
@@ -170,7 +178,7 @@ function loadQuestion() {
 }
 
 function selectAnswer(btn, selectedIndex, correctIndex) {
-    // Desabilita todos os botões e o botão de pular temporariamente
+    // Desabilita todos os botões e o botão de pular temporariamente para evitar cliques duplos
     Array.from(optionsContainer.children).forEach(b => b.style.pointerEvents = "none");
     btnSkip.disabled = true;
 
@@ -179,34 +187,37 @@ function selectAnswer(btn, selectedIndex, correctIndex) {
     if (isCorrect) {
         btn.classList.add("correct");
         document.body.classList.add("flash-correct");
+        
+        // TOCA SOM DE ACERTO
+        somAcerto.currentTime = 0;
+        somAcerto.play();
+        
         score++;
     } else {
         btn.classList.add("wrong");
         document.body.classList.add("flash-wrong");
-        // Marca a correta
+        
+        // TOCA SOM DE ERRO
+        somErro.currentTime = 0;
+        somErro.play();
+        
+        // Marca a alternativa correta visualmente
         optionsContainer.children[correctIndex].classList.add("correct");
     }
 
-    // Aguarda 700ms (tempo da animação) para avançar
+    // Aguarda 700ms (tempo da animação visual) para avançar
     setTimeout(() => {
         document.body.classList.remove("flash-correct", "flash-wrong");
         advanceToNextQuestion();
     }, 700);
 }
 
-btnSkip.addEventListener("click", () => {
-    if (!isAnsweringSkipped) {
-        skippedQueue.push(currentQueue[currentQuestionIndex]);
-        advanceToNextQuestion();
-    }
-});
-
 function advanceToNextQuestion() {
     currentQuestionIndex++;
 
     if (!isAnsweringSkipped) {
         if (currentQuestionIndex >= currentQueue.length) {
-            // Terminou a fila principal
+            // Terminou a fila principal, verifica repescagem
             if (skippedQueue.length > 0) {
                 isAnsweringSkipped = true;
                 currentQuestionIndex = 0;
@@ -245,34 +256,49 @@ function showResults() {
     else if(score <= 7) progressFill.style.backgroundColor = "#fcd34d"; // amarelo
     else progressFill.style.backgroundColor = "var(--correct-bg)";
 
+    // FEEDBACK DE TEXTO + ÁUDIOS FINAIS
     const feedback = document.getElementById("feedback-message");
-    if (score === 10) feedback.textContent = "Excelente! Você arrasou na TI!";
-    else if (score >= 7) feedback.textContent = "Bom trabalho! Continue assim!";
-    else feedback.textContent = "Não desanime! Revise os conceitos e tente de novo.";
+    
+    if (score === 10) {
+        feedback.textContent = "Excelente! Você arrasou na TI!";
+        somExcelente.play();
+    } else if (score >= 7) {
+        feedback.textContent = "Bom trabalho! Continue assim!";
+        somOtimo.play();
+    } else {
+        feedback.textContent = "Não desanime! Revise os conceitos e tente de novo.";
+        somRuim.play();
+    }
 }
 
-document.getElementById("btn-restart").addEventListener("click", initQuiz);
+// --- CONFIGURAÇÃO DOS EVENTOS DE CLIQUE (ÚNICOS) ---
 
-// Inicia o quiz
-initQuiz();
-
-// EVENTOS DE CLIQUE
+// Botão Iniciar (Tela de Boas-vindas)
 btnStart.addEventListener("click", () => {
+    somClick.currentTime = 0;
+    somClick.play();
+
     startSection.classList.add("hidden");
-    initQuiz(); // Inicia o carregamento das perguntas reais
+    initQuiz();
 });
 
+// Botão Pular Questão
 btnSkip.addEventListener("click", () => {
+    somClick.currentTime = 0;
+    somClick.play();
+
     if (!isAnsweringSkipped) {
         skippedQueue.push(currentQueue[currentQuestionIndex]);
         advanceToNextQuestion();
     }
 });
 
+// Botão Jogar Novamente (Tela de Resultados)
 document.getElementById("btn-restart").addEventListener("click", () => {
-    // Quando clicar em jogar novamente, volta para a tela de início
+    somClick.currentTime = 0;
+    somClick.play();
     startQuizFlow();
 });
 
-// Inicializa o fluxo exibindo a tela de boas-vindas
+// Inicializa o fluxo exibindo a tela de boas-vindas ao carregar a página
 startQuizFlow();

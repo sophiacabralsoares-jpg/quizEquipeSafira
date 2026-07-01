@@ -115,10 +115,19 @@ h2#question-text {
     display: flex;
     align-items: center;
     gap: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .option-btn:hover {
     border-color: var(--header-bg);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12) 0 4px 8px rgba(0, 0, 0, 0.06);
+    background-color: #f8fafc;
+}
+
+.option-btn:active{
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /*Acerto/erro*/
