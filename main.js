@@ -1,86 +1,15 @@
-const questions = [
-    {
-        question: "Na área de TI, qual é o escopo principal de atuação de um profissional de Infraestrutura?",
-        options: ["Desenvolver interfaces gráficas para aplicativos web.", 
-            "Gerenciar, configurar e manter redes, servidores e sistemas garantindo a disponibilidade.",
-            "Escrever a lógica de negócios e consultas no lado do servidor."
-        ],
-        correctAnswer: 1
-    },
-    {
-        question: "No ecossistema de desenvolvimento web, qual é a principal responsabilidade do Front-end?",
-        options: ["Estruturar o esquema de dados e garantir a integridade referencial.",
-            "Criar e otimizar a interface do usuário, interatividade e layout.",
-            "Gerenciar as rotas da API e a autenticação do servidor, garantindo acessibilidade ao usuário."
-        ],
-        correctAnswer: 1
-    },
-    {
-        question: "Qual é a principal função de um Banco de Dados em uma aplicação?",
-        options: ["Compilar o código-fonte em linguagem de máquina",
-            "Renderizar os estilos visuais de uma página web.",
-            "Armazenar, organizar e permitir a recuperação eficiente de dados."
-        ],
-        correctAnswer: 2
-    },
-    {
-        question: "O desenvolvimento Back-end foca predominantemente em quais aspectos de um sistema?",
-        options: ["Lógica de negócios, processamento de dados, segurança e APIs no servidor.",
-            "Responsividade e otimização de imagens para diferentes telas.",
-            "Conexão entre diferentes partes da equipe, incluindo a parte de Front-end e Banco de Dados."
-        ],
-        correctAnswer: 0
-    },
-    {
-        question:"Qual é a definição técnica do HTML no contexto de um desenvolvimento web?",
-        options: ["Uma linguagem de programação orientada a objetos.",
-            "Um sistema de controle de versionamento para códigos.",
-            "Uma linguagem de marcação para estruturar."
-        ],
-        correctAnswer: 2
-    },
-    {
-        question: "Qual é o propósito fundamental do CSS?",
-        options: ["Controlar a apresentação e estilização.",
-            "Adicionar comportamento lógico.",
-            "Estilizar a interface do computador."
-        ],
-        correctAnswer: 0
-    },
-    {
-        question: "Na lógica de programação, como podemos definir o conceito de 'variável'?",
-        options: ["Um protocolo de comunicação entre cliente e servidor.",
-            "Uma estrutura de repetição específica para iterar matrizes.",
-            "Um espaço no código para armazenar valores."
-        ],
-        correctAnswer: 2
-    },
-    {
-        question: "Em SQL, qual comando é utilizado para instanciar um novo banco de dados?",
-        options: ["DROP DATABASE",
-            "CREATE DATABASE",
-            "OPEN DATABASE"
-        ],
-        correctAnswer: 1
-    },
-    {
-        question: "Qual é a definição mais precisa para um Sistema Operacional?",
-        options: ["Um gerenciador de funcionamento da máquina.",
-            "Armazena senhas, dados, arquivos e etc.",
-            "Cria sites automaticamente"
-        ],
-        correctAnswer: 0
-    },
-    {
-        question:"O que caracteriza o uso de um terminal na computação?",
-        options: ["Uma interface de texto",
-            "Um ambiente de desenvolvimento integrado focado apenas em linguagens compiladas",
-            "Um periférico de entrada projetado exclusivamente para leitura de dados"
-        ],
-        correctAnswer: 0
-    }
-];
+let questions = [];
 
+async function carregarPerguntas(){
+    const resposta = await fetch('perguntas.json');
+    questions = await resposta.json();
+
+    startQuizFlow();
+}
+
+carregarPerguntas();
+
+let consecutiveSkips = 0;
 let currentQueue = [];
 let skippedQueue = [];
 let score = 0;
@@ -97,6 +26,7 @@ const remainingText = document.getElementById("remaining-text");
 const btnSkip = document.getElementById("btn-skip");
 const quizSection = document.getElementById("quiz-card-section");
 const resultSection = document.getElementById("result-section");
+const jumpscareOverlay = document.getElementById("jumpscare-overlay");
 
 // ÁUDIOS / EFEITOS SONOROS
 const somAcerto = new Audio('mp3/rightanswer.mp3');
@@ -105,6 +35,7 @@ const somExcelente = new Audio('mp3/excelentresult.mp3');
 const somOtimo = new Audio('mp3/greatresult.mp3');
 const somRuim = new Audio('mp3/poorresult.mp3');
 const somClick = new Audio('mp3/clicksound.mp3');
+const somJumpscare = new Audio('mp3/fahhhhh.mp3');
 
 // ELEMENTOS DA DOM PARA A TELA DE INÍCIO
 const startSection = document.getElementById("start-section");
@@ -178,6 +109,7 @@ function loadQuestion() {
 }
 
 function selectAnswer(btn, selectedIndex, correctIndex) {
+    consecutiveSkips = 0;
     // Desabilita todos os botões e o botão de pular temporariamente para evitar cliques duplos
     Array.from(optionsContainer.children).forEach(b => b.style.pointerEvents = "none");
     btnSkip.disabled = true;
@@ -270,6 +202,14 @@ function showResults() {
         somRuim.play();
     }
 }
+function triggerJumpscare(){
+    somJumpscare.currentTime = 0;
+    somJumpscare.play();
+
+    jumpscareOverlay.classList.add("jumpscare-active");
+
+    setTimeout(())
+}
 
 // --- CONFIGURAÇÃO DOS EVENTOS DE CLIQUE (ÚNICOS) ---
 
@@ -289,6 +229,12 @@ btnSkip.addEventListener("click", () => {
 
     if (!isAnsweringSkipped) {
         skippedQueue.push(currentQueue[currentQuestionIndex]);
+        consecutiveSkips++;
+
+        if (consecutiveSkips === 3){
+            triggerJumpscare();
+            consecutiveSkips = 0;
+        }
         advanceToNextQuestion();
     }
 });
