@@ -208,7 +208,9 @@ function triggerJumpscare(){
 
     jumpscareOverlay.classList.add("jumpscare-active");
 
-    setTimeout(())
+    setTimeout(() => {
+        jumpscareOverlay.classList.remove("jumpscare-active");
+    }, 2500);
 }
 
 // --- CONFIGURAÇÃO DOS EVENTOS DE CLIQUE (ÚNICOS) ---
