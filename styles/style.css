@@ -17,7 +17,7 @@
 }
 
 body {
-    background-color: #caf0f8;
+    background-color: #66a3ff;
     font-family: var(--fonte-main);
     color: var(--text-dark);
     display: flex;
@@ -274,7 +274,8 @@ button {
 }
 
 .start-desc {
-    font-size: 0.95rem;
+    font-size: 0.99rem;
+    font-weight: 560;
     line-height: 1.5;
     color: var(--text-dark);
 }
@@ -292,7 +293,7 @@ button {
     font-size: 1.05rem;
     color: var(--header-bg);
     margin-bottom: 0.75rem;
-    font-weight: 600;
+    font-weight: bolder;
 }
 
 .rules-box ul {
@@ -304,6 +305,7 @@ button {
 
 .rules-box li {
     font-size: 0.85rem;
+    font-weight: 600;
     line-height: 1.4;
 }
 
