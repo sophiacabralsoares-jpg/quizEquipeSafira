@@ -269,12 +269,12 @@ button {
 
 .start-card h2{
     color: var(--header-bg);
-    font-size: 1.6rem;
+    font-size: 1.9rem;
     font-weight: 700;
 }
 
 .start-desc {
-    font-size: 0.99rem;
+    font-size: 1.3rem;
     font-weight: 560;
     line-height: 1.5;
     color: var(--text-dark);
@@ -290,7 +290,7 @@ button {
 }
 
 .rules-box h3 {
-    font-size: 1.05rem;
+    font-size: 1.2rem;
     color: var(--header-bg);
     margin-bottom: 0.75rem;
     font-weight: bolder;
@@ -304,7 +304,7 @@ button {
 }
 
 .rules-box li {
-    font-size: 0.85rem;
+    font-size: 1.0rem;
     font-weight: 600;
     line-height: 1.4;
 }
