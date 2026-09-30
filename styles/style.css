@@ -226,6 +226,11 @@ button {
     color: var(--header-bg);
 }
 
+.score-box p {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
 .progress-bar-bg {
     background-color: #e2e8f0;
     height: 10px;
